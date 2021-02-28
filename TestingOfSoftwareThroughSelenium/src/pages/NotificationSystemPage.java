@@ -13,16 +13,17 @@ public class NotificationSystemPage extends BasicPage{
 	public NotificationSystemPage(WebDriver driver) {
 		super(driver);
 	}
-	public WebElement getMessage() {
+	public WebElement getMessage() throws InterruptedException {
 		return this.driver.findElement(By.xpath("//*[contains(@class, 'alert--success') or "
 				+ "contains(@class, 'alert--danger')][contains(@style,'display: block')]"));
 	}
-	public String showMessage () {
+	public String showMessage () throws InterruptedException {
 		return this.getMessage().getText();
 	}
 	public void waitUntilMessageDisapear() {
 		this.waiter = new WebDriverWait(driver, 30);
-		waiter.until(ExpectedConditions.attributeContains(this.driver.findElement(By.xpath("//*[contains(@class, 'system_message')]")), "style", "display: none;"));
+		waiter.until(ExpectedConditions.attributeContains(this.driver.findElement(By.xpath
+				("//*[contains(@class, 'system_message')]")), "style", "display: none;"));
 	}
 
 }

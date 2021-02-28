@@ -12,7 +12,7 @@ public class CartSummaryPage extends BasicPage{
 	public WebElement getClearAllButton() {
 		return this.driver.findElement(By.xpath("//*[@id=\"cartSummary\"]/div/div[1]/a[2]"));
 	}
-	public void deleteAllFromChart() {
+	public void deleteAllFromCart() {
 		this.getClearAllButton().click();
 	}
 

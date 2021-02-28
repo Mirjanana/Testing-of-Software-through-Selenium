@@ -51,7 +51,6 @@ public class ProfilePage extends BasicPage{
 		return this.driver.findElement(By.name("btn_submit"));
 	}
 	public WebElement getUploadPicture() {
-		//return this.driver.findElement(By.xpath("//*[@id=\"profileInfo\"]/div/div[1]/div/a"));
 		return this.driver.findElement(By.xpath("//a[@title='Uplaod']"));
 	}
 	public WebElement getRemovePicture() {
@@ -63,7 +62,6 @@ public class ProfilePage extends BasicPage{
 	public void uploadPicture (String imgPath) {
 		getInputType();
 		this.driver.findElement(By.xpath("//input[@type='file']")).sendKeys(imgPath);
-		//pozvati test, da bi uhvatila polje input i prosledila mu ovaj String
 	}
 	public void removePicture() {
 		js.executeScript("arguments[0].click();",getRemovePicture());
@@ -75,8 +73,9 @@ public class ProfilePage extends BasicPage{
 		this.getAddress().sendKeys(address);
 		this.getPhone().sendKeys(phoneNumber);
 		this.getZipCode().sendKeys(zipCode);
+		Thread.sleep(10000);
 		this.getUserCounty().selectByIndex(country); 
-		Thread.sleep(2000);
+		Thread.sleep(10000);
 		this.getUserState().selectByIndex(state);
 		Thread.sleep(10000);
 		this.getUserCity().selectByIndex(city);

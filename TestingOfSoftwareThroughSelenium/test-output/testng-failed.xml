@@ -5,11 +5,10 @@
     <classes>
       <class name="tests.MealItemTest">
         <methods>
-          <include name="clearChartTest"/>
+          <include name="closeAplication"/>
           <include name="addMealToFavourite"/>
           <include name="setUp"/>
-          <include name="addMealToChart"/>
-          <include name="screenShots"/>
+          <include name="afterTest"/>
         </methods>
       </class> <!-- tests.MealItemTest -->
     </classes>

@@ -1,12 +1,20 @@
 package tests;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -41,7 +49,6 @@ public abstract class BasicTest {
 				"driver-lib\\chromedriver.exe");
 		
 		this.driver = new ChromeDriver();
-		//this.waiter = new WebDriverWait(driver, 30);
 		this.logInPage = new LogInPage(driver);
 		this.locationPopUpPage = new LocationPopUpPage(driver, executor);
 		this.notifPage = new NotificationSystemPage(driver);
@@ -53,13 +60,22 @@ public abstract class BasicTest {
 		this.driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
-	@AfterMethod 
-	public void screenShots () {
-		
+		@AfterMethod
+		public void afterTest(ITestResult result) throws IOException {
+			if (result.getStatus() == ITestResult.FAILURE) {
+				   System.out.println("Sacuvan je screenshot!");
+				   Date d = new Date();
+				   String FileName = d.toString().replace(":", "_").replace(" ", "_") + ".png";
+				   File screenshot = ((TakesScreenshot) driver). getScreenshotAs(OutputType. FILE);
+				   FileHandler.copy(screenshot, 
+				   new File("screenshots/" + FileName));
+			}
+			this.driver.manage().deleteAllCookies();
+			this.driver.navigate().refresh();
 	}
-//	@AfterClass
-//	public void closeAplication () {
-//		this.driver.close();
-//	}
-
+	
+	@AfterClass
+	public void closeAplication () {
+		this.driver.close();
+	}
 }
